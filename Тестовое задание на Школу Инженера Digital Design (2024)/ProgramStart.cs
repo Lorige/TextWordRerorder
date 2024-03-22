@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Тестовое_задание_на_Школу_Инженера_Digital_Design__2024_
+﻿
+namespace TextWordsRecord
 {
     class ProgramStart
     {
@@ -19,7 +14,11 @@ namespace Тестовое_задание_на_Школу_Инженера_Digit
         {
             string str;
             while (true)
-            {
+            {+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                if (ReadKey())
+
+
+                    continue;
                 string? strEmpty = Console.ReadLine()
                                       .RemoveAuxiliaryChars();
                 
@@ -32,6 +31,17 @@ namespace Тестовое_задание_на_Школу_Инженера_Digit
                 }
             }
             return str;
+        }
+        private bool ReadKey()
+        {
+            ConsoleKeyInfo cki;
+
+            cki = Console.ReadKey(false);
+            if (cki.Key == ConsoleKey.Escape)
+                TextInterface.End();
+
+            else if (cki.Key == ConsoleKey.D1)
+                SettingsWrite.Unions = !SettingsWrite.Unions;
         }
     }
 }

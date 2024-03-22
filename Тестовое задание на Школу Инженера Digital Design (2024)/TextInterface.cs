@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Тестовое_задание_на_Школу_Инженера_Digital_Design__2024_
+namespace TextWordsRecord
 {
     class TextInterface
     {

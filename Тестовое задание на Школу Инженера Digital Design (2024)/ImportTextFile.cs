@@ -1,11 +1,11 @@
 ﻿using DocumentFormat.OpenXml.Packaging;
 
 
-namespace Тестовое_задание_на_Школу_Инженера_Digital_Design__2024_
+namespace TextWordsRecord
 {
     public class ImportTextFile
     {
-        public string path;
+        public string? path;
         Dictionary<string, Action<string>> FileExtenxionsAction;
         public ImportTextFile(string str)
         {
