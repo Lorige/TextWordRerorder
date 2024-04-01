@@ -3,22 +3,16 @@ namespace TextWordsRecord
 {
     class ProgramStart
     {
-        internal string localPathResult;
         public ProgramStart() 
         {
-            ImportTextFile importTextFile = new ImportTextFile(InputString());
-            localPathResult = importTextFile.path;
+           new ImportTextFile(InputString());
         }
 
         private string InputString()
         {
             string str;
             while (true)
-            {+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-                if (ReadKey())
-
-
-                    continue;
+            {
                 string? strEmpty = Console.ReadLine()
                                       .RemoveAuxiliaryChars();
                 
@@ -27,10 +21,9 @@ namespace TextWordsRecord
                 else
                 {
                     str = strEmpty;
-                    break;
+                    return str;
                 }
             }
-            return str;
         }
         private bool ReadKey()
         {
@@ -42,6 +35,8 @@ namespace TextWordsRecord
 
             else if (cki.Key == ConsoleKey.D1)
                 SettingsWrite.Unions = !SettingsWrite.Unions;
+            return false;
         }
+
     }
 }
