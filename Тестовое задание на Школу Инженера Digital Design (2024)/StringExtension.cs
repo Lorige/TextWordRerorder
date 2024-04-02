@@ -1,4 +1,4 @@
-﻿namespace TextWordsRecord
+﻿namespace Extensions
 {
     public static class StringExtension
     {
@@ -22,7 +22,6 @@
         {
             return ('А' <= c & c <= 'я') || ('A' <= c & c <= 'Z') || ('a' <= c & c <= 'z') || 'Ё' == c || 'ё' == c;
         }
-
         public static bool IsNull(this string? word)
         {
             if (word == null || word == "") 

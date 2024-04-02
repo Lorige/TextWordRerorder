@@ -1,24 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace TextWordsRecord
 {
     class TextInterface
     {
 
         public static void Start() =>
-            Console.WriteLine("Введите путь к файлу или перенесите файл сюда: ");
+            Console.WriteLine("Нажмите 1 для редактирования настроек\n" +
+                "Введите путь к файлу или перенесите файл сюда: ");
         public static void End() =>
             Console.WriteLine("Завершение приложения");
         public static void OtherPartOfSpeachWriter()
         {
-            Console.WriteLine($"Союзы: {BoolToString(SettingsWrite.Unions)}");
-            Console.WriteLine($"Предлоги: {BoolToString(SettingsWrite.Preposition)}");
-            Console.WriteLine($"Местоимения: {BoolToString(SettingsWrite.Pronoun)}");
+            Console.WriteLine($"1. Союзы: {BoolToString(SettingsWrite.Unions)}");
+            Console.WriteLine($"2. Предлоги: {BoolToString(SettingsWrite.Preposition)}");
+            Console.WriteLine($"3. Местоимения: {BoolToString(SettingsWrite.Pronoun)}");
             Console.WriteLine("выкл - не сохраняется, вкл - сохраняется");
+            Console.WriteLine("Нажмите соответствующую цифру для изменения или 0 для выхода");
         }
 
         private static string BoolToString(bool value)
@@ -29,18 +26,21 @@ namespace TextWordsRecord
                 return "вкл";
         }
 
-        public static void WritePathSucces(string path)
-        {
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"Файл создан: {path}");
-            Console.ResetColor();
-        }
+        public static void WritePathSucces(string path)=>
+            WriteWithColor(path, ConsoleColor.Green);
 
-        public static void WriteError(string ex)
+
+        public static void WriteError(string ex) =>
+            WriteWithColor(ex, ConsoleColor.Red);
+
+        private static void WriteWithColor(string text, ConsoleColor color)
         {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(ex);
+            Console.ForegroundColor = color;
+            Console.WriteLine(text);
             Console.ResetColor();
+            Console.WriteLine("Нажмите любую клавишу для продолжения");
+            Console.ReadKey(true);
+            Console.Clear();
         }
     }
 }

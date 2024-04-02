@@ -1,9 +1,10 @@
-﻿namespace TextWordsRecord
+﻿using Extensions;
+
+namespace TextWordsRecord
 {
     class TextWork
     {
         #region OtherSpeach
-
         string[] unionsArray = {"а", "и",  "абы","аж","ажно", "ай", "ак", "ака",
             "аки", "ако", "але", "али", "аль", "ан", "аще", "б", "благо", "благодаря", "бо", "буде", "будто",
             "будь", "ведь", "вдобавок",  "впрочем", "всё", "всё-таки", "вследствие", "г", "где", "где-то", "д", "да",
@@ -56,6 +57,7 @@
         #region Property
         string Text;
         DirectoryInfo Path;
+        bool WriteSucces = false;
         string PathResult { get; set; }
         Dictionary<string, int> CountUniqueWords = new Dictionary<string, int>();
 
@@ -90,6 +92,7 @@
         {
             RecordUniqueWords(Text.Split('\n', ' ', '.', ';', ':', ',', '-'));
             WritingResultsToFile(SortByCondition());
+            if (WriteSucces)
             TextInterface.WritePathSucces(PathResult);
         }
 
@@ -136,7 +139,7 @@
                 }
                 catch (Exception ex)
                 {
-                    TextInterface.WriteError(ex.Message + " (ошибка на этапе записи)");
+                    TextInterface.WriteError(ex.Message);
                     break;
                 }
             }
@@ -173,20 +176,22 @@
             {
                 using (var streamWriter = new StreamWriter(PathResult ?? ReturnFilePath(), true))
                 {
+                    WriteSucces = true;
                     streamWriter.WriteLine(text);
                 }
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.HResult.ToString());
+                WriteSucces = false;
+                throw new Exception(ex.Message.ToString());
             }
         }
 
         string ReturnFilePath()
         {
             return PathResult = Path.FullName
-                .Replace(Path.Extension, $" Result [{DateTime.Now.Hour}-" +
-                $"{DateTime.Now.Minute}-{DateTime.Now.Second}].txt");
+                .Replace(Path.Extension, string.Format(" Words [{0:d2}]-", DateTime.Now.Hour) +
+                string.Format("[{0:d2}]-", DateTime.Now.Minute) + string.Format("[{0:d2}]", DateTime.Now.Second) + ".txt");
         }
 
         

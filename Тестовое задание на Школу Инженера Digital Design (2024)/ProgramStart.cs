@@ -1,11 +1,15 @@
-﻿
+﻿using Extensions;
+
 namespace TextWordsRecord
 {
     class ProgramStart
     {
         public ProgramStart() 
         {
-           new ImportTextFile(InputString());
+            while(true)
+            {
+                new ImportTextFile(InputString());
+            }
         }
 
         private string InputString()
@@ -13,11 +17,14 @@ namespace TextWordsRecord
             string str;
             while (true)
             {
-                string? strEmpty = Console.ReadLine()
-                                      .RemoveAuxiliaryChars();
-                
-                if (strEmpty.IsNull())
-                    Console.WriteLine("Пустая строка");
+                TextInterface.Start();
+                string? strEmpty = Console.ReadLine();
+                if (strEmpty == "1")
+                    SettingsSet();
+                else if (strEmpty.RemoveAuxiliaryChars().IsNull())
+                {
+                    TextInterface.WriteError("Такого пути не существует");
+                }
                 else
                 {
                     str = strEmpty;
@@ -25,18 +32,34 @@ namespace TextWordsRecord
                 }
             }
         }
-        private bool ReadKey()
+
+        private void SettingsSet()
         {
-            ConsoleKeyInfo cki;
-
-            cki = Console.ReadKey(false);
-            if (cki.Key == ConsoleKey.Escape)
-                TextInterface.End();
-
-            else if (cki.Key == ConsoleKey.D1)
-                SettingsWrite.Unions = !SettingsWrite.Unions;
-            return false;
+            var exit = false;
+            while (!exit)
+            {
+                Console.Clear();
+                TextInterface.OtherPartOfSpeachWriter();
+                switch (Console.ReadKey(true).KeyChar)
+                {
+                    case '1':
+                        SettingsWrite.Unions = !SettingsWrite.Unions;
+                        break;
+                    case '2':
+                        SettingsWrite.Preposition = !SettingsWrite.Preposition;
+                        break;
+                    case '3':
+                        SettingsWrite.Pronoun = !SettingsWrite.Pronoun;
+                        break;
+                    case '0':
+                        exit = true;
+                        Console.Clear();
+                        break;
+                    default:
+                        Console.WriteLine("Неизвестная команда");
+                        break;
+                }
+            }
         }
-
     }
 }
